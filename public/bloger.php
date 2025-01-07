@@ -13,6 +13,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Outfit:wght@100..900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <style>
+        @keyframes appear {
+            from {
+                opacity: 0;
+                scale: 0.5;
+            }
+
+            to {
+                opacity: 1;
+                scale: 1;
+            }
+
+        }
+        .animation {
+            animation: appear linear;
+            animation-timeline: view();
+            animation-range: entry 0% cover 40% ;
+        }
+    </style>
 
 </head>
 
@@ -63,7 +82,7 @@
     
 
     <!-- Article Detail Page -->
-    <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="animation max-w-4xl mx-auto px-4 py-8">
         <article class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">
             <img src="./img/nis.jpg" alt="Article" class="w-full h-64 object-cover">
             <div class="p-6">
@@ -84,7 +103,7 @@
     </div>
 
         <!-- Article Detail Page -->
-        <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="animation max-w-4xl mx-auto px-4 py-8">
         <article class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">
             <img src="./img/nis.jpg" alt="Article" class="w-full h-64 object-cover">
             <div class="p-6">
@@ -95,9 +114,9 @@
                 </div>
                 <p class="text-gray-700 mb-6 leading-relaxed">
                 At our car wash, we are dedicated to providing exceptional service that ensures your car always looks its best. We understand that a clean car not only enhances its appearance but also helps maintain its value and longevity. That's why we use only the highest quality products and advanced techniques to thoroughly clean every part of your vehicle. Our team of trained professionals is committed to giving your car the attention it deserves, making sure it looks shiny, spotless, and like new.                </p>
-                <button class="flex items-center gap-2 text-blue-500 hover:text-black">
+                <a href="articles.php" class="flex items-center gap-2 text-blue-500 hover:text-black">
                     Show more
-               </button>
+                </a>
             </div>
         </article>
 
@@ -105,7 +124,7 @@
     </div>
 
         <!-- Article Detail Page -->
-        <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="animation max-w-4xl mx-auto px-4 py-8">
         <article class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">
             <img src="./img/nis.jpg" alt="Article" class="w-full h-64 object-cover">
             <div class="p-6">
