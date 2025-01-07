@@ -71,6 +71,58 @@ CREATE TABLE `statistiques` (
 
 
 
+CREATE TABLE `articles` (
+    `id_article` INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    `id_user_fk` INT(11) NOT NULL,
+    `titre` VARCHAR(255) NOT NULL,
+    `contenu` TEXT NOT NULL,
+    `images` TEXT DEFAULT NULL,
+    `videos` TEXT DEFAULT NULL, 
+    `statut` ENUM('en_attente', 'approuve', 'rejete') DEFAULT 'en_attente', 
+    `date_creation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `date_publication` TIMESTAMP NULL DEFAULT NULL,
+    FOREIGN KEY (`id_user_fk`) REFERENCES `users`(`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE `tags` (
+    `id_tag` INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    `nom_tag` VARCHAR(255) NOT NULL
+);
+
+
+
+CREATE TABLE `article_tags` (
+    `id_article` INT(11) NOT NULL,
+    `id_tag` INT(11) NOT NULL,
+    PRIMARY KEY (`id_article`, `id_tag`),
+    FOREIGN KEY (`id_article`) REFERENCES `articles`(`id_article`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`id_tag`) REFERENCES `tags`(`id_tag`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE `commentaires` (
+    `id_commentaire` INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    `id_article_fk` INT(11) NOT NULL,
+    `id_user_fk` INT(11) NOT NULL,
+    `contenu` TEXT NOT NULL,
+    `date_creation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`id_article_fk`) REFERENCES `articles`(`id_article`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`id_user_fk`) REFERENCES `users`(`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE `favoris` (
+    `id_favori` INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    `id_user_fk` INT(11) NOT NULL,
+    `id_article_fk` INT(11) NOT NULL,
+    `date_ajout` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`id_user_fk`) REFERENCES `users`(`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`id_article_fk`) REFERENCES `articles`(`id_article`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+
 
 
 
