@@ -70,9 +70,18 @@ CREATE TABLE `statistiques` (
 );
 
 
+CREATE TABLE `blogs` (
+    `id_blog` INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+    `tags` VARCHAR(255) DEFAULT NULL,
+    `description` TEXT DEFAULT NULL,
+    `date_creation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 CREATE TABLE `articles` (
     `id_article` INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    `id_blog_fk` INT(11) NOT NULL,
     `id_user_fk` INT(11) NOT NULL,
     `titre` VARCHAR(255) NOT NULL,
     `contenu` TEXT NOT NULL,
@@ -81,6 +90,7 @@ CREATE TABLE `articles` (
     `statut` ENUM('en_attente', 'approuve', 'rejete') DEFAULT 'en_attente', 
     `date_creation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `date_publication` TIMESTAMP NULL DEFAULT NULL,
+    FOREIGN KEY (`id_blog_fk`) REFERENCES `blogs`(`id_blog`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`id_user_fk`) REFERENCES `users`(`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -89,7 +99,6 @@ CREATE TABLE `tags` (
     `id_tag` INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     `nom_tag` VARCHAR(255) NOT NULL
 );
-
 
 
 CREATE TABLE `article_tags` (
@@ -120,6 +129,9 @@ CREATE TABLE `favoris` (
     FOREIGN KEY (`id_user_fk`) REFERENCES `users`(`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`id_article_fk`) REFERENCES `articles`(`id_article`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
+
 
 
 
