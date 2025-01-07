@@ -1,19 +1,3 @@
-<?php
-require_once __DIR__ . '/../app/database/Database.php';
-require_once __DIR__ . '/../app/class/categorie.php';
-
-// Initialize database connection
-$database = new Database();
-$db = $database->connect();
-
-// Initialize Category class
-$category = new Category($db);
-
-// Fetch all categories
-$categories = $category->getAllCategories();
-?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -32,9 +16,8 @@ $categories = $category->getAllCategories();
 
 </head>
 
-<body>
-    <!-- FIRST SECTION -->
-    <section class="landingPage h-[230px] flex flex-col items-center rounded-b-full">
+<body class="bg-gray-100">
+    <section class="landingPage h-[350px] flex flex-col items-center rounded-b-3xl ">
         <div
             class="flex fixed z-40 rounded-b-xl w-[85%]  justify-around gap-24 items-center py-3  md:px-24 bg-white shadow-2xl">
             <a href="./home.php"><img class="w-[120px]" src="./img/logo.png" alt="logo"></a>
@@ -55,10 +38,9 @@ $categories = $category->getAllCategories();
         <div class=" bg-center gap-12 bg-cover   h-[100vh]  lg:pt-0 mt-24">
 
             <div class="mx-auto max-w-screen-sm text-center">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">This is our cars
-                    categories</h2>
-                <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-200">Explore our cars collection
-                    with category let's drive !</p>
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    We have thems for you to explore !</h2>
+                <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-200">Welcome to our collection of cars! We have a wide range of vehicles available for you to explore and find the perfect match. Whether you're looking for a sleek and stylish ride or a practical and reliable option, our selection has something for everyone. Take your time to browse through our cars and discover the ideal vehicle that fits your needs and style. We're excited to help you find your next car!</p>
             </div>
 
 
@@ -69,73 +51,81 @@ $categories = $category->getAllCategories();
     </section>
 
 
-    <section class="bg-[url('./img/bagr.jpg')] bg-center bg-cover shadow-2xl">
-        <div class="max-w-2xl mx-auto">
+    <section class="bg-[url('./img/bagr.jpg')] bg-center bg-cover    lg:px-24 lg:pt-0">
+           <!-- Pagination -->
+    <div class="mt-8 flex justify-center gap-2">
+        <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">Précédent</button>
+        <button class="px-4 py-2 border rounded-lg bg-blue-500 text-white">1</button>
+        <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">2</button>
+        <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">3</button>
+        <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">Suivant</button>
+    </div>
+    
 
-            <form>
-                <label for="default-search" class="mb-2 text-sm font-medium text-white">Search</label>
-                <div class="relative">
-                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5 text-white dark:text-white" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </div>
-                    <input type="search" id="default-search"
-                        class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-black focus:border-black dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-black dark:focus:border-black"
-                        placeholder="Search a car " required>
-                    <button type="submit"
-                        class="text-black absolute right-2.5 bottom-2.5 bg-white font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+    <!-- Article Detail Page -->
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <article class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">
+            <img src="./img/nis.jpg" alt="Article" class="w-full h-64 object-cover">
+            <div class="p-6">
+                <h1 class="text-3xl font-bold mb-4">Cars wash</h1>
+                <div class="flex gap-2 mb-4">
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#voyage</span>
+                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">#aventure</span>
                 </div>
-            </form>
-            <div class="flex gap-4">
-                <div class="w-64 ">
-                    <label for="options" class="block text-gray-700 text-sm font-semibold mb-2"></label>
-                    <select id="options"
-                        class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                        <?php foreach ($categories as $category): ?>
-                            <option value="<?php echo $category['id_categorie']; ?>"><?php echo $category['nom']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-
-
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                At our car wash, we are dedicated to providing exceptional service that ensures your car always looks its best. We understand that a clean car not only enhances its appearance but also helps maintain its value and longevity. That's why we use only the highest quality products and advanced techniques to thoroughly clean every part of your vehicle. Our team of trained professionals is committed to giving your car the attention it deserves, making sure it looks shiny, spotless, and like new.                </p>
+                <button class="flex items-center gap-2 text-blue-500 hover:text-black">
+                    Show more
+               </button>
             </div>
+        </article>
 
+     
+    </div>
 
-        </div>
-        <div class="flex flex-wrap gap-12 px-4 justify-center py-12">
-            <?php foreach ($categories as $category): ?>
-                <div class="relative group w-[500px] shadow-2xl h-[300px] bg-cover bg-center rounded-lg hover:scale-90 duration-300 hover:cursor-pointer"
-                    style="background-image: url('<?php echo $category['categorie_img']; ?>');">
-                    <div
-                        class="absolute inset-0 rounded-lg bg-black bg-opacity-50 text-white flex opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="p-8">
-                            <h3 class="text-2xl font-semibold"><?php echo $category['nom']; ?></h3>
-                            <p class="mt-2 font-light"><?php echo $category['description']; ?></p>                 
-                            <a href=" vihicules.php?category_id=<?php echo $category['id_categorie']; ?>" class="text-green-500">Show Vehicles</a>
-                        </div>
-                    </div>
+        <!-- Article Detail Page -->
+        <div class="max-w-4xl mx-auto px-4 py-8">
+        <article class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">
+            <img src="./img/nis.jpg" alt="Article" class="w-full h-64 object-cover">
+            <div class="p-6">
+                <h1 class="text-3xl font-bold mb-4">Cars wash</h1>
+                <div class="flex gap-2 mb-4">
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#voyage</span>
+                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">#aventure</span>
                 </div>
-            <?php endforeach; ?>
-        </div>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                At our car wash, we are dedicated to providing exceptional service that ensures your car always looks its best. We understand that a clean car not only enhances its appearance but also helps maintain its value and longevity. That's why we use only the highest quality products and advanced techniques to thoroughly clean every part of your vehicle. Our team of trained professionals is committed to giving your car the attention it deserves, making sure it looks shiny, spotless, and like new.                </p>
+                <button class="flex items-center gap-2 text-blue-500 hover:text-black">
+                    Show more
+               </button>
+            </div>
+        </article>
+
+     
+    </div>
+
+        <!-- Article Detail Page -->
+        <div class="max-w-4xl mx-auto px-4 py-8">
+        <article class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">
+            <img src="./img/nis.jpg" alt="Article" class="w-full h-64 object-cover">
+            <div class="p-6">
+                <h1 class="text-3xl font-bold mb-4">Cars wash</h1>
+                <div class="flex gap-2 mb-4">
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#voyage</span>
+                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">#aventure</span>
+                </div>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                At our car wash, we are dedicated to providing exceptional service that ensures your car always looks its best. We understand that a clean car not only enhances its appearance but also helps maintain its value and longevity. That's why we use only the highest quality products and advanced techniques to thoroughly clean every part of your vehicle. Our team of trained professionals is committed to giving your car the attention it deserves, making sure it looks shiny, spotless, and like new.                </p>
+                <button class="flex items-center gap-2 text-blue-500 hover:text-black">
+                    Show more
+               </button>
+            </div>
+        </article>
+
+     
+    </div>
+
     </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -212,15 +202,7 @@ $categories = $category->getAllCategories();
 </section>
 
 
-
-
-
-
-
-
-
-
-
+ 
 </body>
 
 </html>

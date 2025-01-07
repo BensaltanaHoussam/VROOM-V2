@@ -48,7 +48,7 @@ if ($reservedVehicleId) {
                     href="./home.php">Home</a>
                 <a href="./historique.php">Reservations</a>
                 <a href="./categories.php">Categories</a>
-                <a href="./categories.php">Services</a>
+                <a href="./bloger.php">Services</a>
             </div>
             <div>
                 <a href="#"
