@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $bloger = new Bloger($db);
     if ($bloger->addBlog($name, $tags, $description, $date_creation, $blogImgURL)) {
-        echo "Blog added successfully!";
+        header('Location: ../../../../Dashboard/page/bloger.php');
     } else {
         echo "Failed to add blog.";
     }

@@ -88,90 +88,37 @@
             <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">Suivant</button>
         </div>
 
+        <?php
+        require_once '../../app/database/Database.php';
+        $database = new Database();
+        $db = $database->connect();
 
-        <!-- Article Detail Page -->
-        <div class="animation max-w-4xl mx-auto px-4 py-8">
-            <article
-                class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">
-                <img src="../../public/img/nis.jpg" alt="Article" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h1 class="text-3xl font-bold mb-4">Cars wash</h1>
-                    <div class="flex gap-2 mb-4">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#voyage</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">#aventure</span>
-                    </div>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        At our car wash, we are dedicated to providing exceptional service that ensures your car always
-                        looks its best. We understand that a clean car not only enhances its appearance but also helps
-                        maintain its value and longevity. That's why we use only the highest quality products and
-                        advanced techniques to thoroughly clean every part of your vehicle. Our team of trained
-                        professionals is committed to giving your car the attention it deserves, making sure it looks
-                        shiny, spotless, and like new. </p>
-                    <button class="flex items-center gap-2 text-blue-500 hover:text-black">
-                        Show more
-                    </button>
-                </div>
-            </article>
+        $query = "SELECT * FROM blogs";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
 
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo '<div class="animation max-w-4xl mx-auto px-4 py-8">';
+            echo '<article class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">';
+            echo '<img src="' . htmlspecialchars($row['blog_img']) . '" alt="Blog Image" class="w-full h-64 object-cover">';
+            echo '<div class="p-6">';
+            echo '<h1 class="text-3xl font-bold mb-4">' . htmlspecialchars($row['name']) . '</h1>';
+            echo '<div class="flex gap-2 mb-4">';
+            $tags = explode(',', $row['tags']);
+            foreach ($tags as $tag) {
+                echo '<span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#' . htmlspecialchars(trim($tag)) . '</span>';
+            }
+            echo '</div>';
+            echo '<p class="text-gray-700 mb-6 leading-relaxed">' . htmlspecialchars($row['description']) . '</p>';
+            echo '<button class="flex items-center gap-2 text-blue-500 hover:text-black">Show more</button>';
+            echo '</div>';
+            echo '</article>';
+            echo '</div>';
+        }
 
-        </div>
-
-        <!-- Article Detail Page -->
-        <div class="animation max-w-4xl mx-auto px-4 py-8">
-            <article
-                class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">
-                <img src="../../public/img/nis.jpg" alt="Article" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h1 class="text-3xl font-bold mb-4">Cars wash</h1>
-                    <div class="flex gap-2 mb-4">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#voyage</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">#aventure</span>
-                    </div>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        At our car wash, we are dedicated to providing exceptional service that ensures your car always
-                        looks its best. We understand that a clean car not only enhances its appearance but also helps
-                        maintain its value and longevity. That's why we use only the highest quality products and
-                        advanced techniques to thoroughly clean every part of your vehicle. Our team of trained
-                        professionals is committed to giving your car the attention it deserves, making sure it looks
-                        shiny, spotless, and like new. </p>
-                    <a href="articles.php" class="flex items-center gap-2 text-blue-500 hover:text-black">
-                        Show more
-                    </a>
-                </div>
-            </article>
-
-
-        </div>
-
-        <!-- Article Detail Page -->
-        <div class="animation max-w-4xl mx-auto px-4 py-8">
-            <article
-                class="bg-white rounded-lg overflow-hidden hover:shadow-2xl hover:cursor-pointer shadow-gray-500 hover:shadow-blue-700 shadow-xl transition-shadow duration-300">
-                <img src="./img/nis.jpg" alt="Article" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h1 class="text-3xl font-bold mb-4">Cars wash</h1>
-                    <div class="flex gap-2 mb-4">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#voyage</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">#aventure</span>
-                    </div>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        At our car wash, we are dedicated to providing exceptional service that ensures your car always
-                        looks its best. We understand that a clean car not only enhances its appearance but also helps
-                        maintain its value and longevity. That's why we use only the highest quality products and
-                        advanced techniques to thoroughly clean every part of your vehicle. Our team of trained
-                        professionals is committed to giving your car the attention it deserves, making sure it looks
-                        shiny, spotless, and like new. </p>
-                    <button class="flex items-center gap-2 text-blue-500 hover:text-black">
-                        Show more
-                    </button>
-                </div>
-            </article>
-
-
-        </div>
-
+        $database->disconnect();
+        ?>
     </section>
-
 
     <!-- Add Blog Modal -->
     <div id="addBlogModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
