@@ -46,7 +46,7 @@
                     href="./home.php">Home</a>
                 <a href="./historique.php">Reservations</a>
                 <a href="./categories.php">Categories</a>
-                <a href="./bloger.php">Services</a>
+                <a href="./bloger.php">Bloger</a>
             </div>
             <div>
                 <a href="#"
@@ -185,7 +185,7 @@
                     </button>
                 </div>
 
-                <form id="addBlogForm" action="" method="POST" class="space-y-4" onsubmit="handleSubmit(event)">
+                <form id="addBlogForm" action="../../app/action/admin/bloger/add.php" method="POST" class="space-y-4" onsubmit="handleSubmit(event)">
                     <div>
                         <label for="blogName" class="block text-sm font-medium text-gray-700 mb-2">Blog Name</label>
                         <input type="text" id="blogName" name="name" required

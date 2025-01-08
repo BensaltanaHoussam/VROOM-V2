@@ -1,28 +1,24 @@
 <?php
-require_once '../../../database/Database.php'; // Adjust the path as necessary
-require_once '../../../class/categorie.php'; // Adjust the path as necessary
-
-
+require_once '../../../database/Database.php';
+require_once '../../../class/bloger.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Initialize database connection
     $database = new Database();
     $db = $database->connect();
 
-    // Get form data
-    $categoryName = htmlspecialchars($_POST['categoryName']);
-    $categoryDesc = htmlspecialchars($_POST['categoryDesc']);
-    $categoryImgURL = htmlspecialchars($_POST['categorie_img']); // URL of the category image
+    $name = htmlspecialchars($_POST['name']);
+    $tags = htmlspecialchars($_POST['tags']);
+    $description = htmlspecialchars($_POST['description']);
+    $blogImgURL = htmlspecialchars($_POST['blog_img']);
+    $date_creation = date('Y-m-d H:i:s'); // Current timestamp
 
-    // Save the category with the provided image URL
-    $blogs = new bloger($db);
-    if ($category->addCategory($categoryName, $categoryDesc, $categoryImgURL)) {
-        echo "Category added successfully!";
+    $bloger = new Bloger($db);
+    if ($bloger->addBlog($name, $tags, $description, $date_creation, $blogImgURL)) {
+        echo "Blog added successfully!";
     } else {
-        echo "Failed to add category.";
+        echo "Failed to add blog.";
     }
 
-    // Disconnect from the database
     $database->disconnect();
 }
 ?>

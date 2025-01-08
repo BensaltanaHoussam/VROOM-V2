@@ -43,7 +43,7 @@ $categories = $category->getAllCategories();
                     href="../index.php">Home</a>
                 <a href="historique.php">Reservations</a>
                 <a href="categories.php">Categories</a>
-                <a href="categories.php">Services</a>
+                <a href="bloger.php">Bloger</a>
             </div>
             <div>
                 <a href="#"

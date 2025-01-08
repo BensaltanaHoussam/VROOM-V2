@@ -43,7 +43,7 @@ if ($categoryId) {
                 <a class="bg-black text-white border-2 hover:bg-white hover:border-2 hover:text-black py-1 px-4 rounded-md transform duration-300" href="../../Dashboard/index.php">Home</a>
                 <a href="historique.php">Reservations</a>
                 <a href="categories.php">Categories</a>
-                <a href="categories.php">Services</a>
+                <a href="bloger.php">Bloger</a>
             </div>
             <div>
                 <a href="#" class="text-white text-lg bg-black border-2 rounded-3xl py-1 px-4 hover:text-black hover:bg-white hover:border-black transform duration-300">Contact Us</a>
