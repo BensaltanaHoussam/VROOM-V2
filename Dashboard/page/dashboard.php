@@ -146,6 +146,12 @@
             <!-- Tags Section -->
             <div id="tags-section">
                 <h1 class="text-2xl font-bold mb-6">Tags</h1>
+                <form action="../../app/action/admin/tags/add.php" method="POST" class="mb-6">
+                    <div class="flex gap-4">
+                        <input type="text" name="tag_name" placeholder="Tag Name" class="w-full px-4 py-2 border rounded-lg">
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Add Tag</button>
+                    </div>
+                </form>
                 <table class="min-w-full table-auto border-collapse border border-gray-200">
                     <thead>
                         <tr class="bg-gray-100"></tr>
