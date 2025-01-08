@@ -37,6 +37,11 @@
 </head>
 
 <body class="bg-gray-100">
+    <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    ?>
     <section class="landingPage h-[380px] flex flex-col items-center rounded-b-3xl ">
         <div
             class="flex fixed z-40 rounded-b-xl w-[85%]  justify-around gap-24 items-center py-3  md:px-24 bg-white shadow-2xl">
@@ -111,6 +116,7 @@
             echo '</div>';
             echo '<p class="text-gray-700 mb-6 leading-relaxed">' . htmlspecialchars($row['description']) . '</p>';
             echo '<button class="flex items-center gap-2 text-blue-500 hover:text-black">Show more</button>';
+            echo '<button onclick="openEditModal(' . htmlspecialchars($row['id_blog']) . ', \'' . htmlspecialchars($row['name']) . '\', \'' . htmlspecialchars($row['tags']) . '\', \'' . htmlspecialchars($row['description']) . '\', \'' . htmlspecialchars($row['blog_img']) . '\')" class="flex items-center gap-2 text-blue-500 hover:text-black">Edit</button>';
             echo '</div>';
             echo '</article>';
             echo '</div>';
@@ -184,6 +190,70 @@
         </div>
     </div>
 
+    <!-- Edit Blog Modal -->
+    <div id="editBlogModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl max-w-md w-full mx-4 shadow-2xl">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-black">Edit Blog</h3>
+                    <button onclick="closeEditModal()" class="text-gray-400 hover:text-white transition-colors" aria-label="Fermer">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="editBlogForm" action="../../app/action/admin/bloger/edit.php" method="POST" class="space-y-4" onsubmit="handleSubmit(event)">
+                    <input type="hidden" id="editBlogId" name="id">
+                    <div>
+                        <label for="editBlogName" class="block text-sm font-medium text-gray-700 mb-2">Blog Name</label>
+                        <input type="text" id="editBlogName" name="name" required
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="Enter the name of the blog">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="editBlogNameError"></div>
+                    </div>
+
+                    <div>
+                        <label for="editBlogTags" class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                        <input type="text" id="editBlogTags" name="tags"
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="Enter tags separated by commas">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="editBlogTagsError"></div>
+                    </div>
+
+                    <div>
+                        <label for="editBlogDesc" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <textarea id="editBlogDesc" name="description" required
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            rows="3" placeholder="Write a description"></textarea>
+                        <div class="text-red-500 text-xs mt-1 hidden" id="editBlogDescError"></div>
+                    </div>
+
+                    <div>
+                        <label for="editBlogImg" class="block text-sm font-medium text-gray-700 mb-2">Blog Image URL</label>
+                        <input type="url" id="editBlogImg" name="blog_img"
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="https://example.com/image.jpg">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="editBlogImgError"></div>
+                    </div>
+
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button type="button" onclick="closeEditModal()"
+                            class="px-4 py-2 bg-white text-black border-black border-2 rounded-lg hover:bg-black hover:text-white transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" id="submitBtn"
+                            class="px-4 py-2 bg-black text-white border-black border-2 rounded-lg hover:bg-white hover:text-black transition-colors">
+                            <span>Save</span>
+                            <div id="loadingSpinner" class="hidden ml-2">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
     <script>
         function openAddModal() {
             document.getElementById('addBlogModal').classList.remove('hidden');
@@ -194,6 +264,22 @@
             const modal = document.getElementById('addBlogModal');
             modal.classList.add('hidden');
             document.getElementById('addBlogForm').reset();
+        }
+
+        function openEditModal(id, name, tags, description, blog_img) {
+            document.getElementById('editBlogId').value = id;
+            document.getElementById('editBlogName').value = name;
+            document.getElementById('editBlogTags').value = tags;
+            document.getElementById('editBlogDesc').value = description;
+            document.getElementById('editBlogImg').value = blog_img;
+            document.getElementById('editBlogModal').classList.remove('hidden');
+            document.getElementById('editBlogModal').classList.add('flex');
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('editBlogModal');
+            modal.classList.add('hidden');
+            document.getElementById('editBlogForm').reset();
         }
     </script>
 
