@@ -117,6 +117,7 @@
             echo '<p class="text-gray-700 mb-6 leading-relaxed">' . htmlspecialchars($row['description']) . '</p>';
             echo '<button class="flex items-center gap-2 text-blue-500 hover:text-black">Show more</button>';
             echo '<button onclick="openEditModal(' . htmlspecialchars($row['id_blog']) . ', \'' . htmlspecialchars($row['name']) . '\', \'' . htmlspecialchars($row['tags']) . '\', \'' . htmlspecialchars($row['description']) . '\', \'' . htmlspecialchars($row['blog_img']) . '\')" class="flex items-center gap-2 text-blue-500 hover:text-black">Edit</button>';
+            echo '<button onclick="deleteBlog(' . htmlspecialchars($row['id_blog']) . ')" class="flex items-center gap-2 text-red-500 hover:text-black">Delete</button>';
             echo '</div>';
             echo '</article>';
             echo '</div>';
@@ -280,6 +281,12 @@
             const modal = document.getElementById('editBlogModal');
             modal.classList.add('hidden');
             document.getElementById('editBlogForm').reset();
+        }
+
+        function deleteBlog(id) {
+            if (confirm('Are you sure you want to delete this blog?')) {
+                window.location.href = '../../app/action/admin/bloger/delete.php?id=' + id;
+            }
         }
     </script>
 

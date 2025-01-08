@@ -39,5 +39,18 @@ class Bloger {
             return false;
         }
     }
+
+    public function deleteBlog($id) {
+        $query = "DELETE FROM blogs WHERE id_blog = :id";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':id', $id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>
