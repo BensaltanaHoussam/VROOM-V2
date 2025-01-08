@@ -23,6 +23,12 @@
                 <a href="javascript:void(0);" class="flex gap-4 px-4 py-2 rounded-2xl" onclick="toggleContent('articles')">
                   <img src="img/Settings_Future.svg" alt=""> Articles
                 </a>
+                <a href="javascript:void(0);" class="flex gap-4 px-4 py-2 rounded-2xl" onclick="toggleContent('blogs')">
+                  <img src="img/Settings_Future.svg" alt=""> Blogs
+                </a>
+                <a href="javascript:void(0);" class="flex gap-4 px-4 py-2 rounded-2xl" onclick="toggleContent('tags')">
+                  <img src="img/Settings_Future.svg" alt=""> Tags
+                </a>
             </div>
         </div>
     </aside>
@@ -85,6 +91,86 @@
                             echo '<td class="border bg-slate-100 border-gray-300 px-4 py-2">';
                             echo '<a href="edit_article.php?id=' . htmlspecialchars($row['id_article']) . '" class="text-blue-500 hover:underline">Edit</a> | ';
                             echo '<a href="delete_article.php?id=' . htmlspecialchars($row['id_article']) . '" class="text-red-500 hover:underline" onclick="return confirm(\'Are you sure you want to delete this article?\');">Delete</a>';
+                            echo '</td>';
+                            echo '</tr>';
+                        }
+
+                        $database->disconnect();
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Blogs Section -->
+            <div id="blogs-section">
+                <h1 class="text-2xl font-bold mb-6">Blogs</h1>
+                <table class="min-w-full table-auto border-collapse border border-gray-200">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border bg-slate-400 border-gray-300 px-4 py-2">ID</th>
+                            <th class="border bg-gray-400 border-gray-300 px-4 py-2">Name</th>
+                            <th class="border bg-gray-400 border-gray-300 px-4 py-2">Tags</th>
+                            <th class="border bg-gray-400 border-gray-300 px-4 py-2">Description</th>
+                            <th class="border bg-gray-400 border-gray-300 px-4 py-2">Date Created</th>
+                            <th class="border bg-gray-400 border-gray-300 px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        require_once '../../app/database/Database.php';
+                        $database = new Database();
+                        $db = $database->connect();
+
+                        $query = "SELECT * FROM blogs";
+                        $stmt = $db->prepare($query);
+                        $stmt->execute();
+
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<tr>';
+                            echo '<td class="border border-gray-300 px-4 py-2">' . htmlspecialchars($row['id_blog']) . '</td>';
+                            echo '<td class="border bg-slate-100 font-medium border-gray-300 px-4 py-2">' . htmlspecialchars($row['name']) . '</td>';
+                            echo '<td class="border bg-slate-100 font-medium border-gray-300 px-4 py-2">' . htmlspecialchars($row['tags']) . '</td>';
+                            echo '<td class="border bg-slate-100 font-medium border-gray-300 px-4 py-2">' . htmlspecialchars($row['description']) . '</td>';
+                            echo '<td class="border bg-slate-100 font-medium border-gray-300 px-4 py-2">' . htmlspecialchars($row['date_creation']) . '</td>';
+                            echo '<td class="border bg-slate-100 border-gray-300 px-4 py-2">';
+                            echo '<a href="edit_blog.php?id=' . htmlspecialchars($row['id_blog']) . '" class="text-blue-500 hover:underline">Edit</a> | ';
+                            echo '<a href="delete_blog.php?id=' . htmlspecialchars($row['id_blog']) . '" class="text-red-500 hover:underline" onclick="return confirm(\'Are you sure you want to delete this blog?\');">Delete</a>';
+                            echo '</td>';
+                            echo '</tr>';
+                        }
+
+                        $database->disconnect();
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Tags Section -->
+            <div id="tags-section">
+                <h1 class="text-2xl font-bold mb-6">Tags</h1>
+                <table class="min-w-full table-auto border-collapse border border-gray-200">
+                    <thead>
+                        <tr class="bg-gray-100"></tr>
+                            <th class="border bg-slate-400 border-gray-300 px-4 py-2">ID</th>
+                            <th class="border bg-gray-400 border-gray-300 px-4 py-2">Tag Name</th>
+                            <th class="border bg-gray-400 border-gray-300 px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        require_once '../../app/database/Database.php';
+                        $database = new Database();
+                        $db = $database->connect();
+
+                        $query = "SELECT * FROM tags";
+                        $stmt = $db->prepare($query);
+                        $stmt->execute();
+
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<tr>';
+                            echo '<td class="border border-gray-300 px-4 py-2">' . htmlspecialchars($row['id_tag']) . '</td>';
+                            echo '<td class="border bg-slate-100 font-medium border-gray-300 px-4 py-2">' . htmlspecialchars($row['nom_tag']) . '</td>';
+                            echo '<td class="border bg-slate-100 border-gray-300 px-4 py-2">';
+                            echo '<a href="edit_tag.php?id=' . htmlspecialchars($row['id_tag']) . '" class="text-blue-500 hover:underline">Edit</a> | ';
+                            echo '<a href="delete_tag.php?id=' . htmlspecialchars($row['id_tag']) . '" class="text-red-500 hover:underline" onclick="return confirm(\'Are you sure you want to delete this tag?\');">Delete</a>';
                             echo '</td>';
                             echo '</tr>';
                         }
