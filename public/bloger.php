@@ -122,69 +122,7 @@
         ?>
     </section>
 
-    <!-- Add Blog Modal -->
-    <div id="addBlogModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-xl max-w-md w-full mx-4 shadow-2xl">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-black">Ajouter un Blog</h3>
-                    <button onclick="closeAddModal()" class="text-gray-400 hover:text-white transition-colors"
-                        aria-label="Fermer">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
 
-                <form id="addBlogForm" action="../../app/action/admin/bloger/add.php" method="POST" class="space-y-4" onsubmit="handleSubmit(event)">
-                    <div>
-                        <label for="blogName" class="block text-sm font-medium text-gray-700 mb-2">Blog Name</label>
-                        <input type="text" id="blogName" name="name" required
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="Enter the name of the blog">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="blogNameError"></div>
-                    </div>
-
-                    <div>
-                        <label for="blogTags" class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
-                        <input type="text" id="blogTags" name="tags"
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="Enter tags separated by commas">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="blogTagsError"></div>
-                    </div>
-
-                    <div>
-                        <label for="blogDesc" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <textarea id="blogDesc" name="description" required
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            rows="3" placeholder="Write a description"></textarea>
-                        <div class="text-red-500 text-xs mt-1 hidden" id="blogDescError"></div>
-                    </div>
-
-                    <div>
-                        <label for="blogImg" class="block text-sm font-medium text-gray-700 mb-2">Blog Image URL</label>
-                        <input type="url" id="blogImg" name="blog_img"
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="https://example.com/image.jpg">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="blogImgError"></div>
-                    </div>
-
-                    <div class="flex justify-end space-x-3 pt-4">
-                        <button type="button" onclick="closeAddModal()"
-                            class="px-4 py-2 bg-white text-black border-black border-2 rounded-lg hover:bg-black hover:text-white transition-colors">
-                            Cancel
-                        </button>
-                        <button type="submit" id="submitBtn"
-                            class="px-4 py-2 bg-black text-white border-black border-2 rounded-lg hover:bg-white hover:text-black transition-colors">
-                            <span>Add</span>
-                            <div id="loadingSpinner" class="hidden ml-2">
-                                <i class="fas fa-spinner fa-spin"></i>
-                            </div>
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
 
   
 
