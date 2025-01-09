@@ -113,7 +113,7 @@
             }
             echo '</div>';
             echo '<p class="text-gray-700 mb-6 leading-relaxed">' . htmlspecialchars($row['description']) . '</p>';
-            echo '<a href="articles.php" class="flex items-center gap-2 text-blue-500 hover:text-black">Show more</a>';            echo '</div>';
+            echo '<a href="articles.php?id='. htmlspecialchars($row['id_blog']) .'" class="flex items-center gap-2 text-blue-500 hover:text-black">Show more</a>';            echo '</div>';
             echo '</article>';
             echo '</div>';
         }

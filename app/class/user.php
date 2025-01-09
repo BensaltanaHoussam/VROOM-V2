@@ -1,53 +1,83 @@
 <?php
 require_once __DIR__ . '/../database/Database.php';
-class User
-{
+
+class User {
     private $conn;
     private $table = 'users';
 
-    public $id;
-    public $username;
-    public $password;
+    public $id_user;
+    public $fullname;
     public $email;
+    public $mot_de_passe;
     public $id_role_fk;
 
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    public function create() {
-        // Check if the role exists
-        $roleQuery = "SELECT id_role FROM roles WHERE id_role = :id_role_fk";
-        $roleStmt = $this->conn->prepare($roleQuery);
-        $roleStmt->bindParam(':id_role_fk', $this->id_role_fk);
-        $roleStmt->execute();
+    public function signup() {
+        // Create the user
+        $query = "INSERT INTO " . $this->table . " 
+                 (fullname, email, mot_de_passe, id_role_fk) 
+                 VALUES 
+                 (:fullname, :email, :mot_de_passe, :id_role_fk)";
 
-        if ($roleStmt->rowCount() == 0) {
-            // Insert the role if it doesn't exist
-            $insertRoleQuery = "INSERT INTO roles (id_role) VALUES (:id_role_fk)";
-            $insertRoleStmt = $this->conn->prepare($insertRoleQuery);
-            $insertRoleStmt->bindParam(':id_role_fk', $this->id_role_fk);
-            $insertRoleStmt->execute();
-        }
-
-        // Insert the user
-        $query = "INSERT INTO " . $this->table . " (username, password, email, id_role_fk) VALUES (:username, :password, :email, :id_role_fk)";
         $stmt = $this->conn->prepare($query);
+        // Clean and bind data
+        $this->fullname = htmlspecialchars(strip_tags($this->fullname));
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->mot_de_passe = htmlspecialchars(strip_tags($this->mot_de_passe));
 
-        $stmt->bindParam(':username', $this->username);
-        $stmt->bindParam(':password', $this->password);
+        $stmt->bindParam(':fullname', $this->fullname);
         $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':mot_de_passe', $this->mot_de_passe);
         $stmt->bindParam(':id_role_fk', $this->id_role_fk);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        $stmt->execute();
     }
 
-    public static function getAll()
-    {
+    public function login($email, $password) {
+        $query = "SELECT u.*, r.role 
+                 FROM " . $this->table . " u
+                 JOIN roles r ON u.id_role_fk = r.id_role
+                 WHERE u.email = :email";
+
+        $stmt = $this->conn->prepare($query);
+
+        $email = htmlspecialchars(strip_tags($email));
+        $stmt->bindParam(':email', $email);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (password_verify($password, $row['mot_de_passe'])) {
+                // Set object properties
+                $this->id_user = $row['id_user'];
+                $this->fullname = $row['fullname'];
+                $this->email = $row['email'];
+                $this->id_role_fk = $row['id_role_fk'];
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function emailExists() {
+        $query = "SELECT id_user FROM " . $this->table . " WHERE email = :email";
+        $stmt = $this->conn->prepare($query);
+
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $stmt->bindParam(':email', $this->email);
+
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
+    }
+
+    // Keeping your existing static methods
+    public static function getAll() {
         $database = new Database();
         $db = $database->connect();
         $sql = "SELECT * FROM users";
@@ -56,8 +86,7 @@ class User
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getByEmail($email)
-    {
+    public static function getByEmail($email) {
         $database = new Database();
         $db = $database->connect();
         $sql = "SELECT * FROM users WHERE email = ?";

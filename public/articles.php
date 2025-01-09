@@ -357,140 +357,106 @@
 
 
 
-    <!-- Add Article Modal -->
-    <div id="addArticleModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-xl   mx-4 shadow-2xl">
-            <div class="p-6  ">
-
-
-                <form id="addArticleForm" action="../../app/action/admin/articles/add.php" method="POST"
-                    class="space-y-4 flex gap-8 items-center" onsubmit="handleSubmit(event)">
-
-                    <div class="w-[400px]">
-
-                        <div class=" justify-between items-center">
-                            <h3 class="text-2xl font-bold text-black">Ajouter un article</h3>
-                            <button onclick="closeAddModal()" class="text-black hover:text-white transition-colors"
-                                aria-label="Fermer">
-                                <i class="fas fa-times"></i>
-                            </button>  
-                        </div>
-
-
-                        <div class="pb-4">
-                            <label for="articleTitle" class="block text-sm font-medium text-gray-700 mb-2">Article
-                                Title</label>
-                            <input type="text" id="articleTitle" name="title" required
-                                class="w-full  bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                                placeholder="Enter the title of the article">
-                            <div class="text-red-500 text-xs mt-1 hidden" id="articleTitleError"></div>
-                        </div>
-
-                        <div class="pb-2"> 
-                            <label for="articleContent"
-                                class="block text-sm font-medium text-gray-700 mb-2">Content</label>
-                            <textarea id="articleContent" name="content" required
-                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                                rows="5" placeholder="Write the content"></textarea>
-                            <div class="text-red-500 text-xs mt-1 hidden" id="articleContentError"></div>
-                        </div>
-
-                        <div>
-                            <label for="articleStatus"
-                                class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
-                            <select id="articleStatus" name="status" required
-                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700">
-                                <option value="draft">Draft</option>
-                                <option value="published">Published</option>
-                            </select>
-                            <div class="text-red-500 text-xs mt-1 hidden" id="articleStatusError"></div>
-                        </div>
-
-
-                        
-
-
-
-                        <div class="flex justify-end space-x-3 pt-4">
-                            <button type="button" onclick="closeAddModal()"
-                                class="px-4 py-2 bg-white text-black border-black border-2 rounded-lg hover:bg-black hover:text-white transition-colors">
-                                Cancel
-                            </button>
-                            <button type="submit" id="submitBtn"
-                                class="px-4 py-2 bg-black text-white border-black border-2 rounded-lg hover:bg-white hover:text-black transition-colors">
-                                <span>Add</span>
-                                <div id="loadingSpinner" class="hidden ml-2">
-                                    <i class="fas fa-spinner fa-spin"></i>
-                                </div>
-                            </button>
-                        </div>
-
-                    </div>
-
-
-                    <div class="w-[300px]">
-
-                        <div>
-                            <label for="articleImages" class="block text-sm font-medium text-gray-700 mb-2">main Images
-                                (URLs)</label>
-                            <input type="text" id="articleImages" name="images"
-                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                                placeholder="Enter image URLs separated by commas">
-                            <div class="text-red-500 text-xs mt-1 hidden" id="articleImagesError"></div>
-                        </div>
-                        <div>
-                            <label for="articleImages1" class="block text-sm font-medium text-gray-700 mb-2">Images 1
-                                (URLs)</label>
-                            <input type="text" id="articleImages" name="images1 "
-                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                                placeholder="Enter image URLs separated by commas">
-                            <div class="text-red-500 text-xs mt-1 hidden" id="articleImagesError"></div>
-                        </div>
-                        <div>
-                            <label for="articleImages2" class="block text-sm font-medium text-gray-700 mb-2">Images 2
-                                (URLs)</label>
-                            <input type="text" id="articleImages" name="images2"
-                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                                placeholder="Enter image URLs separated by commas">
-                            <div class="text-red-500 text-xs mt-1 hidden" id="articleImagesError"></div>
-                        </div>
-                        <div>
-                            <label for="articleImages3" class="block text-sm font-medium text-gray-700 mb-2">Images 3
-                                (URLs)</label>
-                            <input type="text" id="articleImages" name="images3"
-                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                                placeholder="Enter image URLs separated by commas">
-                            <div class="text-red-500 text-xs mt-1 hidden" id="articleImagesError"></div>
-                        </div>
-
-                        <div>
-                            <label for="articleVideos" class="block text-sm font-medium text-gray-700 mb-2">Videos
-                                (URLs)</label>
-                            <input type="text" id="articleVideos" name="videos"
-                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                                placeholder="Enter video URLs separated by commas">
-                            <div class="text-red-500 text-xs mt-1 hidden" id="articleVideosError"></div>
-                        </div>
-
-                        <div>
-                            <label for="articleStatus"
-                                class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                            <select id="articleStatus" name="status" required
-                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700">
-                                <option value="draft">Draft</option>
-                                <option value="published">Published</option>
-                            </select>
-                            <div class="text-red-500 text-xs mt-1 hidden" id="articleStatusError"></div>
-                        </div>
-
-                    </div>
-
-
-                </form>
-
+<!-- Add Article Modal -->
+<div id="addArticleModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-xl max-w-3xl w-full mx-4 shadow-2xl">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-black">Ajouter un article</h3>
+                <button onclick="closeAddModal()" class="text-gray-400 hover:text-white transition-colors" aria-label="Fermer">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+
+            <form id="addArticleForm" action="../app/action/admin/Article/add.php" method="POST" class="space-y-4" onsubmit="handleSubmit(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <div>
+                    <input type="hidden" name="id_blog" value="<?php echo $_GET['id'] ?>">
+                    <input type="hidden" name="id_user" value="<?php echo $_SESSION['user_id'] ?>">
+                        <label for="articleTitle" class="block text-sm font-medium text-gray-700 mb-2">Article Title</label>
+                        <input type="text" id="articleTitle" name="titre" required
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="Enter the title of the article">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="articleTitleError"></div>
+                    </div>
+
+                    <div>
+                        <label for="articleContent" class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                        <textarea id="articleContent" name="contenu" required
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            rows="5" placeholder="Write the content"></textarea>
+                        <div class="text-red-500 text-xs mt-1 hidden" id="articleContentError"></div>
+                    </div>
+
+                    <div>
+                        <label for="articleImages" class="block text-sm font-medium text-gray-700 mb-2">Images (URLs)</label>
+                        <input type="text" id="articleImages" name="images"
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="Enter image URLs separated by commas">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="articleImagesError"></div>
+                    </div>
+
+                    <div>
+                        <label for="articleVideos" class="block text-sm font-medium text-gray-700 mb-2">Videos (URLs)</label>
+                        <input type="text" id="articleVideos" name="videos"
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="Enter video URLs separated by commas">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="articleVideosError"></div>
+                    </div>
+
+                
+
+                    <div>
+                        <label for="articleTags" class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                        <input type="text" id="articleTags" name="article_tag"
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="Enter tags separated by commas">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="articleTagsError"></div>
+                    </div>
+
+                    <div>
+                        <label for="articleGImg1" class="block text-sm font-medium text-gray-700 mb-2">Gallery Image 1 (URL)</label>
+                        <input type="text" id="articleGImg1" name="g_img1"
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="Enter gallery image 1 URL">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="articleGImg1Error"></div>
+                    </div>
+
+                    <div>
+                        <label for="articleGImg2" class="block text-sm font-medium text-gray-700 mb-2">Gallery Image 2 (URL)</label>
+                        <input type="text" id="articleGImg2" name="g_img2"
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="Enter gallery image 2 URL">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="articleGImg2Error"></div>
+                    </div>
+
+                    <div>
+                        <label for="articleGImg3" class="block text-sm font-medium text-gray-700 mb-2">Gallery Image 3 (URL)</label>
+                        <input type="text" id="articleGImg3" name="g_img3"
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                            placeholder="Enter gallery image 3 URL">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="articleGImg3Error"></div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4">
+                    <button type="button" onclick="closeAddModal()"
+                        class="px-4 py-2 bg-white text-black border-black border-2 rounded-lg hover:bg-black hover:text-white transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" id="submitBtn"
+                        class="px-4 py-2 bg-black text-white border-black border-2 rounded-lg hover:bg-white hover:text-black transition-colors">
+                        <span>Add</span>
+                        <div id="loadingSpinner" class="hidden ml-2">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
     <script>
         function openAddModal() {

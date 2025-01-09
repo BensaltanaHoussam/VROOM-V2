@@ -1,30 +1,44 @@
 <?php
 require_once '../app/class/user.php';
 
+
+session_start();
+
+
 $error = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $user = User::getByEmail($email); 
-  
-    if ($user && password_verify($password, $user['mot_de_passe'])) {
-        if ($user['id_role_fk'] == 1) {
-            header('Location: ../Dashboard/index.php ');
-
-        }else if ($user['id_role_fk'] == 2) {
-            header('location: ../public/home.php');
+    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
+    $password = $_POST['password'] ?? '';
+    if (empty($email) || empty($password)) {
+        $error = 'Veuillez remplir tous les champs';
+    } else {
+        try {
+            $user = User::getByEmail($email);
+            if ($user && password_verify($password, $user['mot_de_passe'])) {
+                // Set session variables
+                $_SESSION['user_id'] = $user['id_user'];
+                $_SESSION['user_email'] = $user['email'];
+                $_SESSION['user_fullname'] = $user['fullname'];
+                $_SESSION['user_role'] = $user['id_role_fk'];
+                if ($user['id_role_fk'] == 1) {
+                    // Admin redirect
+                    header('Location: ../Dashboard/index.php');
+                    exit();
+                } else if ($user['id_role_fk'] == 2) {
+                   
+                    header('Location: ../public/home.php');
+                    exit();
+                }
+            } else {
+                $error = 'Email ou mot de passe incorrect';
+                error_log("Failed login attempt for email: $email");
+            }
+        } catch (Exception $e) {
+            $error = 'Une erreur est survenue. Veuillez réessayer.';
+            error_log("Login error: " . $e->getMessage());
         }
-        
-
-    }else {
-        $error = 'Email ou mot de passe incorrect';
     }
-
-
-
- 
 }
 ?>
 

@@ -2,44 +2,48 @@
 require_once '../app/database/Database.php';
 require_once '../app/class/user.php';
 
+// Initialize variables
 $error = '';
+$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $database = new Database();
     $db = $database->connect();
 
-    $fullname = htmlspecialchars($_POST['fullname']);
-    $email = htmlspecialchars($_POST['email']);
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $confirm_password = $_POST['confirm_password'];
-    $id_role_fk = isset($_POST['id_role_fk']) ? htmlspecialchars($_POST['id_role_fk']) : null;
+    // Sanitize inputs
+    $fullname = htmlspecialchars(trim($_POST['fullname'] ?? ''));
+    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
+    $password = $_POST['password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+    $id_role_fk = 2; // Default role is user;
 
-    if ($id_role_fk === null) {
-        echo "Role ID is required.";
-        exit();
-    }
-
-    // Check if the passwords match
-    if ($password !== $confirm_password) {
-        $error = 'Les mots de passe ne correspondent pas';
+    // Validation
+    if (empty($fullname) || empty($email) || empty($password) || empty($confirm_password) || empty($id_role_fk)) {
+        $error = 'Tous les champs sont obligatoires';
     } else {
         // Create a new user instance
         $user = new User($db);
-        $user->fullname = $fullname;
-        $user->email = $email;
-        $user->password = $password;
-        $user->id_role_fk = $id_role_fk;
-
-        // Create the user
-        if ($user->create()) {
-            header('Location: login.php');
+        
+        // Check if email already exists
+        if ($user->getByEmail($email)) {
+            $error = 'Cet email est déjà utilisé';
         } else {
-            echo "Failed to create user.";
-        }
+            echo'OK';
+            // Hash password only after all validations pass
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            
+            // Set user properties
+            $user->fullname = $fullname;
+            $user->email = $email;
+            $user->mot_de_passe = $hashed_password;
+            $user->id_role_fk = $id_role_fk;
+
+            $user->signup() ;
+            header('Location: login.php');
     }
 
     $database->disconnect();
-}
+}}
 ?>
 
 <!DOCTYPE html>

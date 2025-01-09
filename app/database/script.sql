@@ -16,6 +16,23 @@ CREATE TABLE `articles` (
   CONSTRAINT `articles_ibfk_2` FOREIGN KEY (`id_user_fk`) REFERENCES `users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE `articles` (
+  `id_article` int(11) NOT NULL,
+  `id_blog_fk` int(11) NOT NULL,
+  `id_user_fk` int(11) NOT NULL,
+  `titre` varchar(255) NOT NULL,
+  `contenu` text NOT NULL,
+  `images` text DEFAULT NULL,
+  `videos` text DEFAULT NULL,
+  `statut` enum('On Review','Accepted','Rejected') DEFAULT NULL,
+  `date_creation` timestamp NOT NULL DEFAULT current_timestamp(),
+  `date_publication` timestamp NULL DEFAULT NULL,
+  `article_tag` varchar(30) DEFAULT NULL,
+  `g_img1` varchar(225) DEFAULT NULL,
+  `g_img2` varchar(225) DEFAULT NULL,
+  `g_img3` varchar(225) DEFAULT NULL
+) ;
+
 CREATE TABLE `article_tags` (
   `id_article` int(11) NOT NULL,
   `id_tag` int(11) NOT NULL,
