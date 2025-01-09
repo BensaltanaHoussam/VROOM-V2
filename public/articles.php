@@ -188,76 +188,61 @@ if (!isset($_SESSION['user_id'])) {
 
                         </div>
                     </div>
+
+
                 </article>
-                <article
-                    class="animation bg-white rounded-lg shadow-black transform hover:scale-95 duration-300 hover:cursor-pointer overflow-hidden shadow-2xl">
-                    <img src="./img/nis.jpg" alt="Article" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h2 class="text-xl font-semibold mb-2">Titre de l'article</h2>
-                        <p class="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">#tag1</span>
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">#tag2</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <a href="#" class="text-blue-500 hover:text-blue-700">Lire la suite →</a>
-                            <button class="flex items-center gap-2 text-red-500 hover:text-red-700">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
+
+                <?php
+                require_once './../app/database/Database.php';
+                $database = new Database();
+                $db = $database->connect();
+
+                $query = "SELECT * FROM articles";
+                $stmt = $db->prepare($query);
+                $stmt->execute();
+
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    // Card container
+                    echo '<div class="animation max-w-4xl mx-auto px-4 py-8">';
+
+                    // Article structure
+                    echo '<article class="animation bg-white rounded-lg shadow-black transform hover:scale-95 duration-300 hover:cursor-pointer overflow-hidden shadow-2xl">';
+
+                    // Image (empty variable)
+                    echo '<img src="' . htmlspecialchars($row['images']) . '" alt="Article" class="w-full h-48 object-cover">';
+
+                    // Content
+                    echo '<div class="p-4">';
+
+                    // Title (empty variable)
+                    echo '<h2 class="text-xl font-semibold mb-2">' . htmlspecialchars($row['titre']) . '</h2>';
+
+                    // Description (empty variable)
+                    echo '<p class="text-gray-600 mb-4">' . htmlspecialchars($row['contenu']) . '</p>';
+
+    
+
+                    // Action buttons (empty variables)
+                    echo '<div class="flex justify-between items-center">';
+                    echo '<a href="articleInfo.php" class="text-blue-500 hover:text-blue-700">Lire la suite →</a>';
+                    echo '<button class="flex items-center gap-2 text-red-500 hover:text-red-700">';
+                    echo '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
+                    echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />';
+                    echo '</svg>';
+                    echo '</button>';
+                    echo '</div>';
+
+                    // Close article and container
+                    echo '</div>';
+                    echo '</article>';
+                    echo '</div>';
+                }
+
+                $database->disconnect();
+                ?>
 
 
-                        </div>
-                    </div>
-                </article>
-                <article
-                    class="animation bg-white rounded-lg shadow-black transform hover:scale-95 duration-300 hover:cursor-pointer overflow-hidden shadow-2xl">
-                    <img src="./img/nis.jpg" alt="Article" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h2 class="text-xl font-semibold mb-2">Titre de l'article</h2>
-                        <p class="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">#tag1</span>
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">#tag2</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <a href="#" class="text-blue-500 hover:text-blue-700">Lire la suite →</a>
-                            <button class="flex items-center gap-2 text-red-500 hover:text-red-700">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
 
-
-                        </div>
-                    </div>
-                </article>
-                <article
-                    class="animation bg-white rounded-lg shadow-black transform hover:scale-95 duration-300 hover:cursor-pointer overflow-hidden shadow-2xl">
-                    <img src="./img/nis.jpg" alt="Article" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h2 class="text-xl font-semibold mb-2">Titre de l'article</h2>
-                        <p class="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">#tag1</span>
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">#tag2</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <a href="#" class="text-blue-500 hover:text-blue-700">Lire la suite →</a>
-                            <button class="flex items-center gap-2 text-red-500 hover:text-red-700">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
-
-
-                        </div>
-                    </div>
-                </article>
 
             </div>
 
@@ -369,106 +354,115 @@ if (!isset($_SESSION['user_id'])) {
 
 
 
-<!-- Add Article Modal -->
-<div id="addArticleModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-white rounded-xl max-w-3xl w-full mx-4 shadow-2xl">
-        <div class="p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-black">Ajouter un article</h3>
-                <button onclick="closeAddModal()" class="text-gray-400 hover:text-white transition-colors" aria-label="Fermer">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <form id="addArticleForm" action="../app/action/admin/Article/add.php" method="POST" class="space-y-4" onsubmit="handleSubmit(event)">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    
-                    <div>
-                    <input type="hidden" name="id_blog" value="<?php echo $_GET['id'] ?>">
-                    <input type="hidden" name="id_user" value="<?php echo $_SESSION['user_id'] ?>">
-                        <label for="articleTitle" class="block text-sm font-medium text-gray-700 mb-2">Article Title</label>
-                        <input type="text" id="articleTitle" name="titre" required
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="Enter the title of the article">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="articleTitleError"></div>
-                    </div>
-
-                    <div>
-                        <label for="articleContent" class="block text-sm font-medium text-gray-700 mb-2">Content</label>
-                        <textarea id="articleContent" name="contenu" required
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            rows="5" placeholder="Write the content"></textarea>
-                        <div class="text-red-500 text-xs mt-1 hidden" id="articleContentError"></div>
-                    </div>
-
-                    <div>
-                        <label for="articleImages" class="block text-sm font-medium text-gray-700 mb-2">Images (URLs)</label>
-                        <input type="text" id="articleImages" name="images"
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="Enter image URLs separated by commas">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="articleImagesError"></div>
-                    </div>
-
-                    <div>
-                        <label for="articleVideos" class="block text-sm font-medium text-gray-700 mb-2">Videos (URLs)</label>
-                        <input type="text" id="articleVideos" name="videos"
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="Enter video URLs separated by commas">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="articleVideosError"></div>
-                    </div>
-
-                
-
-                    <div>
-                        <label for="articleTags" class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
-                        <input type="text" id="articleTags" name="article_tag"
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="Enter tags separated by commas">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="articleTagsError"></div>
-                    </div>
-
-                    <div>
-                        <label for="articleGImg1" class="block text-sm font-medium text-gray-700 mb-2">Gallery Image 1 (URL)</label>
-                        <input type="text" id="articleGImg1" name="g_img1"
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="Enter gallery image 1 URL">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="articleGImg1Error"></div>
-                    </div>
-
-                    <div>
-                        <label for="articleGImg2" class="block text-sm font-medium text-gray-700 mb-2">Gallery Image 2 (URL)</label>
-                        <input type="text" id="articleGImg2" name="g_img2"
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="Enter gallery image 2 URL">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="articleGImg2Error"></div>
-                    </div>
-
-                    <div>
-                        <label for="articleGImg3" class="block text-sm font-medium text-gray-700 mb-2">Gallery Image 3 (URL)</label>
-                        <input type="text" id="articleGImg3" name="g_img3"
-                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
-                            placeholder="Enter gallery image 3 URL">
-                        <div class="text-red-500 text-xs mt-1 hidden" id="articleGImg3Error"></div>
-                    </div>
+    <!-- Add Article Modal -->
+    <div id="addArticleModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl max-w-3xl w-full mx-4 shadow-2xl">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-black">Ajouter un article</h3>
+                    <button onclick="closeAddModal()" class="text-gray-400 hover:text-white transition-colors"
+                        aria-label="Fermer">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
 
-                <div class="flex justify-end space-x-3 pt-4">
-                    <button type="button" onclick="closeAddModal()"
-                        class="px-4 py-2 bg-white text-black border-black border-2 rounded-lg hover:bg-black hover:text-white transition-colors">
-                        Cancel
-                    </button>
-                    <button type="submit" id="submitBtn"
-                        class="px-4 py-2 bg-black text-white border-black border-2 rounded-lg hover:bg-white hover:text-black transition-colors">
-                        <span>Add</span>
-                        <div id="loadingSpinner" class="hidden ml-2">
-                            <i class="fas fa-spinner fa-spin"></i>
+                <form id="addArticleForm" action="../app/action/admin/Article/add.php" method="POST" class="space-y-4"
+                    onsubmit="handleSubmit(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <div>
+                            <input type="hidden" name="id_blog" value="<?php echo $_GET['id'] ?>">
+                            <input type="hidden" name="id_user" value="<?php echo $_SESSION['user_id'] ?>">
+                            <label for="articleTitle" class="block text-sm font-medium text-gray-700 mb-2">Article
+                                Title</label>
+                            <input type="text" id="articleTitle" name="titre" required
+                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                                placeholder="Enter the title of the article">
+                            <div class="text-red-500 text-xs mt-1 hidden" id="articleTitleError"></div>
                         </div>
-                    </button>
-                </div>
-            </form>
+
+                        <div>
+                            <label for="articleContent"
+                                class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                            <textarea id="articleContent" name="contenu" required
+                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                                rows="5" placeholder="Write the content"></textarea>
+                            <div class="text-red-500 text-xs mt-1 hidden" id="articleContentError"></div>
+                        </div>
+
+                        <div>
+                            <label for="articleImages" class="block text-sm font-medium text-gray-700 mb-2">Images
+                                (URLs)</label>
+                            <input type="text" id="articleImages" name="images"
+                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                                placeholder="Enter image URLs separated by commas">
+                            <div class="text-red-500 text-xs mt-1 hidden" id="articleImagesError"></div>
+                        </div>
+
+                        <div>
+                            <label for="articleVideos" class="block text-sm font-medium text-gray-700 mb-2">Videos
+                                (URLs)</label>
+                            <input type="text" id="articleVideos" name="videos"
+                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                                placeholder="Enter video URLs separated by commas">
+                            <div class="text-red-500 text-xs mt-1 hidden" id="articleVideosError"></div>
+                        </div>
+
+
+
+                        <div>
+                            <label for="articleTags" class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                            <input type="text" id="articleTags" name="article_tag"
+                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                                placeholder="Enter tags separated by commas">
+                            <div class="text-red-500 text-xs mt-1 hidden" id="articleTagsError"></div>
+                        </div>
+
+                        <div>
+                            <label for="articleGImg1" class="block text-sm font-medium text-gray-700 mb-2">Gallery Image
+                                1 (URL)</label>
+                            <input type="text" id="articleGImg1" name="g_img1"
+                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                                placeholder="Enter gallery image 1 URL">
+                            <div class="text-red-500 text-xs mt-1 hidden" id="articleGImg1Error"></div>
+                        </div>
+
+                        <div>
+                            <label for="articleGImg2" class="block text-sm font-medium text-gray-700 mb-2">Gallery Image
+                                2 (URL)</label>
+                            <input type="text" id="articleGImg2" name="g_img2"
+                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                                placeholder="Enter gallery image 2 URL">
+                            <div class="text-red-500 text-xs mt-1 hidden" id="articleGImg2Error"></div>
+                        </div>
+
+                        <div>
+                            <label for="articleGImg3" class="block text-sm font-medium text-gray-700 mb-2">Gallery Image
+                                3 (URL)</label>
+                            <input type="text" id="articleGImg3" name="g_img3"
+                                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-600 transition-all border border-gray-700"
+                                placeholder="Enter gallery image 3 URL">
+                            <div class="text-red-500 text-xs mt-1 hidden" id="articleGImg3Error"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button type="button" onclick="closeAddModal()"
+                            class="px-4 py-2 bg-white text-black border-black border-2 rounded-lg hover:bg-black hover:text-white transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" id="submitBtn"
+                            class="px-4 py-2 bg-black text-white border-black border-2 rounded-lg hover:bg-white hover:text-black transition-colors">
+                            <span>Add</span>
+                            <div id="loadingSpinner" class="hidden ml-2">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
     <script>
         function openAddModal() {
