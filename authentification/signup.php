@@ -1,38 +1,44 @@
 <?php
-
+require_once '../app/database/Database.php';
 require_once '../app/class/user.php';
 
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $database = new Database();
+    $db = $database->connect();
+
+    $fullname = htmlspecialchars($_POST['fullname']);
+    $email = htmlspecialchars($_POST['email']);
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $confirm_password = $_POST['confirm_password'];
-    $id_role_fk = '2'; // Default role for new users
+    $id_role_fk = isset($_POST['id_role_fk']) ? htmlspecialchars($_POST['id_role_fk']) : null;
+
+    if ($id_role_fk === null) {
+        echo "Role ID is required.";
+        exit();
+    }
 
     // Check if the passwords match
     if ($password !== $confirm_password) {
         $error = 'Les mots de passe ne correspondent pas';
     } else {
-        // Hash the password
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        
         // Create a new user instance
-        $user = new User(
-            null,
-            $fullname,
-            $email,
-            $hashed_password, // Corrected this to use the hashed password
-            $id_role_fk
-        );
-        
+        $user = new User($db);
+        $user->fullname = $fullname;
+        $user->email = $email;
+        $user->password = $password;
+        $user->id_role_fk = $id_role_fk;
+
         // Create the user
-        $id = $user->create();
-        if ($id) {
+        if ($user->create()) {
             header('Location: login.php');
+        } else {
+            echo "Failed to create user.";
         }
     }
+
+    $database->disconnect();
 }
 ?>
 

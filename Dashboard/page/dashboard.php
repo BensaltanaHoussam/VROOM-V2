@@ -154,7 +154,7 @@
                 </form>
                 <table class="min-w-full table-auto border-collapse border border-gray-200">
                     <thead>
-                        <tr class="bg-gray-100"></tr>
+                        <tr class="bg-gray-100">
                             <th class="border bg-slate-400 border-gray-300 px-4 py-2">ID</th>
                             <th class="border bg-gray-400 border-gray-300 px-4 py-2">Tag Name</th>
                             <th class="border bg-gray-400 border-gray-300 px-4 py-2">Actions</th>
@@ -176,7 +176,7 @@
                             echo '<td class="border bg-slate-100 font-medium border-gray-300 px-4 py-2">' . htmlspecialchars($row['nom_tag']) . '</td>';
                             echo '<td class="border bg-slate-100 border-gray-300 px-4 py-2">';
                             echo '<a href="edit_tag.php?id=' . htmlspecialchars($row['id_tag']) . '" class="text-blue-500 hover:underline">Edit</a> | ';
-                            echo '<a href="delete_tag.php?id=' . htmlspecialchars($row['id_tag']) . '" class="text-red-500 hover:underline" onclick="return confirm(\'Are you sure you want to delete this tag?\');">Delete</a>';
+                            echo '<a href="../../app/action/admin/tags/delete.php?id=' . htmlspecialchars($row['id_tag']) . '" class="text-red-500 hover:underline" onclick="return confirm(\'Are you sure you want to delete this tag?\');">Delete</a>';
                             echo '</td>';
                             echo '</tr>';
                         }
