@@ -21,6 +21,20 @@ class articles {
             return false;
         }
     }
+
+
+    public function deleteArticle($id) {
+        $query = "DELETE FROM articles WHERE id_article = :id";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':id', $id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
     ?>

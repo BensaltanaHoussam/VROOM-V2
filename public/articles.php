@@ -202,41 +202,52 @@ if (!isset($_SESSION['user_id'])) {
                 $stmt->execute();
 
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    // Card container
-                    echo '<div class="animation max-w-4xl mx-auto px-4 py-8">';
+                    if ($row["id_blog_fk"] == $_GET['id']) { // Corrected here
+                        // Card container
+                        echo '<div class="animation max-w-4xl mx-auto px-4 py-8">';
 
-                    // Article structure
-                    echo '<article class="animation bg-white rounded-lg shadow-black transform hover:scale-95 duration-300 hover:cursor-pointer overflow-hidden shadow-2xl">';
+                        // Article structure
+                        echo '<article class="animation bg-white rounded-lg shadow-black transform hover:scale-95 duration-300 hover:cursor-pointer overflow-hidden shadow-2xl">';
 
-                    // Image (empty variable)
-                    echo '<img src="' . htmlspecialchars($row['images']) . '" alt="Article" class="w-full h-48 object-cover">';
+                        // Image (empty variable)
+                        echo '<img src="' . htmlspecialchars($row['images']) . '" alt="Article" class="w-full h-48 object-cover">';
 
-                    // Content
-                    echo '<div class="p-4">';
+                        // Content
+                        echo '<div class="p-4">';
 
-                    // Title (empty variable)
-                    echo '<h2 class="text-xl font-semibold mb-2">' . htmlspecialchars($row['titre']) . '</h2>';
+                        // Title (empty variable)
+                        echo '<h2 class="text-xl font-semibold mb-2">' . htmlspecialchars($row['titre']) . '</h2>';
 
-                    // Description (empty variable)
-                    echo '<p class="text-gray-600 mb-4">' . htmlspecialchars($row['contenu']) . '</p>';
+                        // Description (empty variable)
+                        echo '<p class="text-gray-600 mb-4 w-[310px] truncate">' . htmlspecialchars($row['contenu']) . '</p>';
 
-    
+                        // Corrected status div 
+                        echo '<div class="flex justify-start">'; // Use flexbox to center the content
+                        echo '<p class="text-black text-sm font-light bg-yellow-500/20 px-2 py-2 rounded-xl mb-4">' . htmlspecialchars($row['statut']) . '</p>';
+                        echo '</div>';
 
-                    // Action buttons (empty variables)
-                    echo '<div class="flex justify-between items-center">';
-                    echo '<a href="articleInfo.php" class="text-blue-500 hover:text-blue-700">Lire la suite →</a>';
-                    echo '<button class="flex items-center gap-2 text-red-500 hover:text-red-700">';
-                    echo '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
-                    echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />';
-                    echo '</svg>';
-                    echo '</button>';
-                    echo '</div>';
+                        // Action buttons (empty variables)
+                        echo '<div class="flex justify-between items-center">';
+                        echo '<a href="articleInfo.php" class="text-blue-500 hover:text-blue-700">Lire la suite →</a>';
+                        echo '<form action="../app/action/admin/Article/delete.php?id" method="POST">';
+                        echo '<input type="hidden" name="id_article" value="' . htmlspecialchars($row['id_article']) . '">';
+                        echo '<input type="hidden" name="id_blog" value="' . $_GET['id'] . '">'; // Corrected here
+                        echo '<button type="submit" class="flex items-center gap-2 text-red-500 hover:text-red-700">';
+                        echo '<p class="text-red-500">Cancel</p>';
+                        echo '</button>';
+                        echo '</form>';
+                        echo '</div>';
 
-                    // Close article and container
-                    echo '</div>';
-                    echo '</article>';
-                    echo '</div>';
+
+                        echo '</div>';
+                        echo '</article>';
+                        echo '</div>';
+                    } else {
+
+                        echo '<p>No articles found</p>';
+                    }
                 }
+
 
                 $database->disconnect();
                 ?>
@@ -475,6 +486,8 @@ if (!isset($_SESSION['user_id'])) {
             modal.classList.add('hidden');
             document.getElementById('addArticleForm').reset();
         }
+
+
     </script>
 
 

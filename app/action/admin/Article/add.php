@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $article = new Articles($db);
     if ($article->addArticle($id_blog_fk, $id_user_fk, $titre, $contenu, $images, $videos, $article_tag, $g_img1, $g_img2, $g_img3)) {
-        header('Location: ../../../../../public/page/articles.php');
+        header('Location: ../../../../public/articles.php?id='. $id_blog_fk);
     } else {
         echo "Failed to add article.";
     }
