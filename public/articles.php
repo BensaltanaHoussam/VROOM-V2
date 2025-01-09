@@ -1,3 +1,15 @@
+<?php
+session_start(); // Ensure the session is started
+// ...existing code...
+
+// Ensure $_SESSION['user_id'] is set before accessing it
+if (!isset($_SESSION['user_id'])) {
+    echo "User is not logged in.";
+    exit();
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
