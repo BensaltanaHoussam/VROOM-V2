@@ -1,4 +1,4 @@
-    <?php
+<?php
 class articles {
     private $conn;
 
@@ -28,6 +28,20 @@ class articles {
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(':id', $id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateStatus($id_article, $statut) {
+        $query = "UPDATE articles SET statut = :statut WHERE id_article = :id_article";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':statut', $statut);
+        $stmt->bindParam(':id_article', $id_article);
 
         if ($stmt->execute()) {
             return true;
